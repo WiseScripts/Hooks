@@ -422,9 +422,8 @@ procedure TLowLevelKeyboardHook.PreExecute(var HookMsg: THookMessage; var Handle
   var
     dwMsg: DWORD;
   begin
-    dwMsg := 1;
-    dwMsg := dwMsg + (FHookStruct.ScanCode shl 16);
-    dwMsg := dwMsg + (FHookStruct.flags shl 24);
+    dwMsg := (FHookStruct.ScanCode shl 16);
+    dwMsg := dwMsg + ( (FHookStruct.flags and 1 ) shl 24);
     SetLength(Result, 128);
     SetLength(Result, GetKeynameText(dwMsg, @Result[1], Length(Result)));
   end;
